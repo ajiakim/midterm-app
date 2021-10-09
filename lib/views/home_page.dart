@@ -25,13 +25,12 @@ class HomePage extends StatelessWidget {
         title: const Text("HomePage"),
           titleTextStyle: const TextStyle(color: Colors.black54, fontSize: 40),
         actions: <Widget>[
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.pink[100], // background
-                onPrimary: Colors.black, // foreground
-              ),
+          TextButton(
+            style: TextButton.styleFrom(
+              primary: Colors.black,
+            ),
               onPressed: (){},
-              child: const Icon(Icons.add)
+              child: const Icon(Icons.add),
           )
         ]
       ),

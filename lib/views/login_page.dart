@@ -4,7 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mid_term_asmnt/ui/loading.dart';
+import 'package:mid_term_asmnt/views/phone_login.dart';
 import 'package:mid_term_asmnt/views/register_page.dart';
+import '../authentication.dart';
 import '../driver.dart';
 
 class LoginPage extends StatefulWidget {
@@ -77,7 +79,7 @@ class _LoginState extends State<LoginPage> {
         ),
       ),
     );
-    final submitButton = OutlinedButton(
+    final submitButton = ElevatedButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
           ScaffoldMessenger.of(context)
@@ -95,16 +97,20 @@ class _LoginState extends State<LoginPage> {
         }
       },
       child: const Text('Submit'),
-      style: TextButton.styleFrom(primary: Colors.black54),
+      style: ElevatedButton.styleFrom(
+          primary: Colors.pink[300], // background
+          onPrimary: Colors.black),
     );
 
-    final registerButton = OutlinedButton(
+    final registerButton = ElevatedButton(
       onPressed: () {
         Navigator.push(
             context, MaterialPageRoute(builder: (con) => const RegisterPage()));
       },
       child: const Text('Register'),
-      style: TextButton.styleFrom(primary: Colors.black54),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.pink[300], // background
+        onPrimary: Colors.black),
     );
 
     final google = IconButton(
@@ -113,6 +119,29 @@ class _LoginState extends State<LoginPage> {
       onPressed: (){
         googleSignIn();
       },
+    );
+
+
+
+    final phoneNum = ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context, MaterialPageRoute(builder: (con) => const PhonePage()));
+        },
+        child: const Text('SMS Login'),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.pink[300], // background
+          onPrimary: Colors.black,
+        ),
+    );
+
+    final anony = ElevatedButton(
+      onPressed: (){Authentication().signInAnon(context);},
+      child: const Text("Anonymous"),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.pink[300], // background
+        onPrimary: Colors.black,
+      ),
     );
 
     return Scaffold(
@@ -130,10 +159,13 @@ class _LoginState extends State<LoginPage> {
               child: Column(
                 children: <Widget>[
                   // Add TextFormFields and ElevatedButton here.
+                  anony,
+                  registerButton,
                   emailInput,
+                  const SizedBox(height:15),
                   passwordInput,
                   submitButton,
-                  registerButton,
+                  phoneNum,
                   google
                 ],
               ),
