@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "589962226903",
+    "project_id": "mid-term-asmnt",
+    "storage_bucket": "mid-term-asmnt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589962226903:android:d99d4c4657b62e305b5492",
+        "android_client_info": {
+          "package_name": "com.example.mid_term_asmnt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589962226903-danrdmoh4i44s68l82biv5g9ak61b36p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR7u5wO-15GlNBPS4t2nU5iLeYIJ7X4iE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589962226903-danrdmoh4i44s68l82biv5g9ak61b36p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
