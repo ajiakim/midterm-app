@@ -54,6 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
         appBar: AppBar(
           title: const Text("Register"),
         ),
+        backgroundColor: Colors.pink[100],
         body: Form(
             key: _formKey,
             child: Column(children: [
@@ -169,6 +170,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     hintText: 'Enter phone number'),
               ),
+
+              ElevatedButton(
+                  onPressed: (){
+                    getImage(true);
+                  },
+                  child: )
               const SizedBox(height: 30.0),
               OutlinedButton(
                 onPressed: () {
