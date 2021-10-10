@@ -8,6 +8,7 @@ import 'package:mid_term_asmnt/views/phone_login.dart';
 import 'package:mid_term_asmnt/views/register_page.dart';
 import '../authentication.dart';
 import '../driver.dart';
+import 'email_only.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -117,11 +118,9 @@ class _LoginState extends State<LoginPage> {
       icon: Image.asset('allTheThings/Gmail-logo.png'),
       iconSize: 60,
       onPressed: (){
-        googleSignIn();
+        Authentication().signInWithGoogle(context);
       },
     );
-
-
 
     final phoneNum = ElevatedButton(
         onPressed: () {
@@ -144,6 +143,25 @@ class _LoginState extends State<LoginPage> {
       ),
     );
 
+    final emailOnly = ElevatedButton(
+      onPressed: (){
+        Navigator.push(
+          context, MaterialPageRoute(builder: (con) => const emailPage()));},
+      child: const Text("Email Only"),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.pink[300], // background
+        onPrimary: Colors.black,
+      ),
+    );
+
+    final faceBook = IconButton(
+      icon: Image.asset('allTheThings/Facebook.png'),
+      iconSize: 40,
+      onPressed: (){
+        Authentication().signInWithFacebook(context);
+      },
+    );
+
     return Scaffold(
       backgroundColor: Colors.pink[100],
       body: Center(
@@ -160,13 +178,22 @@ class _LoginState extends State<LoginPage> {
                 children: <Widget>[
                   // Add TextFormFields and ElevatedButton here.
                   anony,
+                  const SizedBox(height:5),
                   registerButton,
+                  const SizedBox(height:5),
+                  emailOnly,
+                  const SizedBox(height:5),
                   emailInput,
                   const SizedBox(height:15),
                   passwordInput,
+                  const SizedBox(height:5),
                   submitButton,
+                  const SizedBox(height:5),
                   phoneNum,
-                  google
+                  const SizedBox(height:5),
+                  google,
+                  const SizedBox(height:5),
+                  faceBook,
                 ],
               ),
             )
@@ -225,20 +252,6 @@ class _LoginState extends State<LoginPage> {
     setState(() {
 
     });
-  }
-
-  void  googleSignIn() async {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    await FirebaseAuth.instance.signInWithCredential(credential);
-
-    Navigator.pushReplacement(context,MaterialPageRoute(builder:  (con) => AppDriver()));
   }
 
 }

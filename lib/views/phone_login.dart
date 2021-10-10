@@ -36,10 +36,9 @@ class _SignInPhoneState extends State<PhonePage> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 300.0,
-        automaticallyImplyLeading: false,
+        toolbarHeight: 100.0,
         backgroundColor: Colors.pink[300],
-        title: Text("Sign in with phone number"),
+        title: Text("SMS Sign In"),
         titleTextStyle: const TextStyle(color: Colors.black54, fontSize: 40),
       ),
       backgroundColor: Colors.pink[100],

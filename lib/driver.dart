@@ -9,6 +9,6 @@ class AppDriver extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    return _auth.currentUser == null ? const LoginPage() : HomePage();
+    return _auth.currentUser == null ? const LoginPage() : const HomePage();
   }
 }

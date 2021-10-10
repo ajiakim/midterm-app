@@ -60,7 +60,11 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          toolbarHeight: 100.0,
+          backgroundColor: Colors.pink[300],
+          centerTitle: true,
           title: const Text("Register"),
+          titleTextStyle: const TextStyle(color: Colors.black54, fontSize: 40),
         ),
         backgroundColor: Colors.pink[100],
         body: Form(
@@ -179,16 +183,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     hintText: 'Enter phone number'),
               ),
 
-              ElevatedButton(
-                  onPressed: (){
-                    getImage(true);
-                  },
-                  child: const Text("What do you look like?",
-                  style: TextStyle(
-                    color: Colors.amberAccent
-                  ))),
               const SizedBox(height: 30.0),
-              OutlinedButton(
+              ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -200,6 +196,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                 },
                 child: const Text('Submit'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.pink[300],
+                    onPrimary: Colors.black
+                ),
               )
             ])));
   }
@@ -246,7 +246,6 @@ class _RegisterPageState extends State<RegisterPage> {
       })
           .then((value) => null)
           .onError((error, stackTrace) => null);
-      addImage();
 
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
@@ -258,25 +257,6 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() {
 
     });
-  }
-
-  Future<void> addImage() async {
-    String id =Authentication().getUserId();
-
-    var storage = FirebaseStorage.instance;
-    TaskSnapshot snapshot = await storage
-        .ref()
-        .child(id)
-        .putFile(_image!);
-    if (snapshot.state == TaskState.success) {
-      final String downloadUrl =
-      await snapshot.ref.getDownloadURL();
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(id)
-          .update({"url": downloadUrl});
-    }
-    Navigator.pushReplacement(context,MaterialPageRoute(builder:  (con) => AppDriver()));
   }
 
   Future<void> register() async {

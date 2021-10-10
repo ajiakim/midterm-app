@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:mid_term_asmnt/views/home_page.dart';
 
 import 'driver.dart';
 
@@ -52,15 +55,13 @@ class Authentication {
     await _auth.sendSignInLinkToEmail(
       email: _email,
       actionCodeSettings: ActionCodeSettings(
-          url: "https://midterm-621.firebaseapp.com",
-          androidPackageName: "com.company.midterm621",
-          iOSBundleId: "com.company.midterm621",
+          url: "https://mid-term-asmnt.firebaseapp.com",
+          androidPackageName: "com.example.mid_term_asmnt",
+          iOSBundleId: "com.example.mid_term_asmnt",
           handleCodeInApp: true,
           androidMinimumVersion: "16",
           androidInstallApp: true),
     );
-
-
   }
   handleLink(Uri link, _email, context) async {
     if (link != null) {
@@ -81,15 +82,10 @@ class Authentication {
     }
   }
 
-
-
-
-
   Future<void>verifyPhone(_phoneNumber, context) async{
     PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential phoneAuthCredential) async {
       await _auth.signInWithCredential(phoneAuthCredential); };
-
 
     PhoneVerificationFailed verificationFailed =
         (FirebaseAuthException authException) {
@@ -119,21 +115,17 @@ class Authentication {
       );
       print(credential);
       final User? user = (await _auth.signInWithCredential(credential)).user;
-
+      Navigator.push(context,MaterialPageRoute(builder:  (context) => HomePage()));
 
     } catch (e) {
       print(e);
     }
-    Navigator.push(context,MaterialPageRoute(builder:  (context) => AppDriver()));
+    Navigator.push(context,MaterialPageRoute(builder:  (context) => HomePage()));
   }
   void signInWithGoogle(context) async{
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-
     final GoogleSignInAuthentication googleAuth = await googleUser!
         .authentication;
-
-
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
@@ -181,13 +173,10 @@ class Authentication {
   void signInWithFacebook(context) async{
 
     final LoginResult fbUser = await FacebookAuth.instance.login();
-
     final AuthCredential facebookCredential =
     FacebookAuthProvider.credential(fbUser.accessToken!.token);
-
     final userCredential =
     await _auth.signInWithCredential(facebookCredential);
-
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (con) => AppDriver()));
 
@@ -205,7 +194,7 @@ class Authentication {
     return showDialog(context: context,
         builder: (context){
           return AlertDialog(
-            content: SingleChildScrollView(
+            content: const SingleChildScrollView(
               child: Text("Are you sure you'd like to log out?"),
             ),
             actions: <Widget>[
